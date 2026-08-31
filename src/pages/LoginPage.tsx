@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
-import { Scale, Lock, Mail, ChevronRight, AlertCircle, Sparkles } from 'lucide-react';
+import { Scale, Lock, Mail, ChevronRight, AlertCircle } from 'lucide-react';
 
 export const LoginPage: React.FC = () => {
   const { login } = useAuth();
@@ -96,15 +96,6 @@ export const LoginPage: React.FC = () => {
           <Link to="/register" className="text-amber-400 font-bold hover:underline">
             Cadastrar Escritório
           </Link>
-        </div>
-
-        {/* Demo Credentials Box */}
-        <div className="p-3.5 bg-slate-950/80 border border-amber-500/20 rounded-xl text-xs space-y-1">
-          <p className="font-bold text-amber-400 flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5" /> Credenciais de Demonstração:
-          </p>
-          <p className="text-slate-300">E-mail: <code className="text-amber-300 font-mono">admin@advocacia.com</code></p>
-          <p className="text-slate-300">Senha: <code className="text-amber-300 font-mono">admin123</code></p>
         </div>
       </div>
     </div>
