@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 import { api } from '../services/api';
 import { Bell, ShieldCheck } from 'lucide-react';
 
@@ -16,10 +17,13 @@ function urlBase64ToUint8Array(base64String: string) {
 }
 
 export function PushNotificationManager() {
+  const { user } = useAuth();
   const [swRegistration, setSwRegistration] = useState<ServiceWorkerRegistration | null>(null);
   const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
+    if (!user) return;
+
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.ready
         .then((registration) => {
@@ -27,7 +31,7 @@ export function PushNotificationManager() {
         })
         .catch((err) => console.debug('Service worker ready error:', err));
     }
-  }, []);
+  }, [user]);
 
   const subscribeToPush = async (registration: ServiceWorkerRegistration) => {
     try {
@@ -62,14 +66,14 @@ export function PushNotificationManager() {
   };
 
   useEffect(() => {
-    if (!('Notification' in window)) return;
+    if (!user || !('Notification' in window)) return;
 
     if (swRegistration && Notification.permission === 'default') {
       setShowBanner(true);
     } else if (swRegistration && Notification.permission === 'granted') {
       registrationCheck(swRegistration);
     }
-  }, [swRegistration]);
+  }, [user, swRegistration]);
 
   const registrationCheck = async (registration: ServiceWorkerRegistration) => {
     try {
@@ -86,7 +90,7 @@ export function PushNotificationManager() {
     }
   };
 
-  if (!showBanner || !swRegistration) return null;
+  if (!user || !showBanner || !swRegistration) return null;
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-md animate-in fade-in">

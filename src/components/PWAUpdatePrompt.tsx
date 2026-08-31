@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { useRegisterSW } from 'virtual:pwa-register/react';
+import { useAuth } from '../context/AuthContext';
 import { RefreshCw } from 'lucide-react';
 
 export function PWAUpdatePrompt() {
+  const { user } = useAuth();
   const [isUpdating, setIsUpdating] = useState(false);
 
   const {
@@ -57,7 +59,7 @@ export function PWAUpdatePrompt() {
     }
   };
 
-  if (!needRefresh) return null;
+  if (!user || !needRefresh) return null;
 
   return (
     <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-4 z-[9999] flex items-center justify-between gap-3 rounded-2xl border bg-slate-900 border-amber-500/40 p-4 text-slate-100 shadow-2xl animate-in fade-in slide-in-from-bottom-5">
