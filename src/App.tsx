@@ -8,6 +8,7 @@ import { Sidebar } from './components/Sidebar';
 import { Header } from './components/Header';
 import { ChatGPTChat } from './components/ChatGPTChat';
 import { PWAUpdatePrompt } from './components/PWAUpdatePrompt';
+import { PushNotificationManager } from './components/PushNotificationManager';
 import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { AdminAssistantsPage } from './pages/AdminAssistantsPage';
@@ -154,6 +155,9 @@ export const App: React.FC = () => {
 
       {/* Global PWA Update Notification Component */}
       <PWAUpdatePrompt />
+
+      {/* Global Push Notification Manager */}
+      <PushNotificationManager />
     </>
   );
 };
