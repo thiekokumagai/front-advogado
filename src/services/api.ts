@@ -9,13 +9,19 @@ export const api = axios.create({
   },
 });
 
-// Request interceptor: add JWT Bearer Token
+// Request interceptor: add JWT Bearer Token & handle FormData
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('accessToken');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
+    // If payload is FormData, delete default application/json header so Axios auto-sets multipart boundary!
+    if (config.data instanceof FormData) {
+      delete config.headers['Content-Type'];
+    }
+
     return config;
   },
   (error) => Promise.reject(error),
