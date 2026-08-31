@@ -17,6 +17,7 @@ import {
   FileCode,
   ShieldCheck,
   X,
+  Trash2,
 } from 'lucide-react';
 
 interface ChatGPTChatProps {
@@ -135,6 +136,10 @@ export const ChatGPTChat: React.FC<ChatGPTChatProps> = ({
       setIsUploading(false);
       if (fileInputRef.current) fileInputRef.current.value = '';
     }
+  };
+
+  const handleRemoveAttachment = (attId: string) => {
+    setAttachments((prev) => prev.filter((att) => att.id !== attId));
   };
 
   const handleCopy = (id: string, text: string) => {
@@ -320,19 +325,39 @@ export const ChatGPTChat: React.FC<ChatGPTChatProps> = ({
             </div>
           )}
 
-          {/* Uploaded Attachments Chips */}
+          {/* Uploaded Attachments Chips with Remove Option */}
           {attachments.length > 0 && (
-            <div className="flex flex-wrap gap-2 pb-1">
+            <div className="flex flex-wrap items-center gap-2 pb-1">
               {attachments.map((att) => (
                 <div
                   key={att.id}
-                  className="flex items-center gap-2 bg-slate-100 dark:bg-slate-900 border border-amber-500/40 px-3 py-1.5 rounded-xl text-xs text-slate-700 dark:text-slate-200 shadow-sm"
+                  className="flex items-center gap-2 bg-slate-100 dark:bg-slate-900 border border-amber-500/40 px-3 py-1.5 rounded-xl text-xs text-slate-700 dark:text-slate-200 shadow-sm group"
                 >
                   <FileText className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
                   <span className="truncate max-w-xs font-medium">{att.fileName}</span>
                   <span className="text-[10px] text-amber-600 dark:text-amber-400/80 uppercase font-bold">({att.fileType})</span>
+                  
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveAttachment(att.id)}
+                    className="ml-1 p-0.5 hover:bg-red-500/20 text-slate-400 hover:text-red-500 rounded-full transition"
+                    title="Remover anexo da conversa"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
                 </div>
               ))}
+
+              {attachments.length > 1 && (
+                <button
+                  type="button"
+                  onClick={() => setAttachments([])}
+                  className="text-[11px] text-red-500 dark:text-red-400 hover:underline px-2 py-1 font-semibold flex items-center gap-1"
+                >
+                  <Trash2 className="w-3 h-3" />
+                  Limpar todos
+                </button>
+              )}
             </div>
           )}
 
@@ -351,7 +376,7 @@ export const ChatGPTChat: React.FC<ChatGPTChatProps> = ({
               onClick={() => fileInputRef.current?.click()}
               disabled={isUploading}
               className="p-3 text-slate-400 hover:text-amber-500 dark:hover:text-amber-400 transition rounded-l-2xl hover:bg-slate-100 dark:hover:bg-slate-800/60"
-              title="Anexar PDF ou DOCX para incluir no contexto da IA"
+              title="Anexar novo PDF ou DOCX"
             >
               {isUploading ? (
                 <Loader2 className="w-5 h-5 animate-spin text-amber-500 dark:text-amber-400" />
