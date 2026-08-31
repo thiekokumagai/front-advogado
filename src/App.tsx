@@ -34,7 +34,7 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
   if (isLoading) {
     return (
-      <div className="h-screen bg-slate-950 flex items-center justify-center text-amber-400">
+      <div className="h-screen bg-slate-100 dark:bg-slate-950 flex items-center justify-center text-amber-500 dark:text-amber-400">
         <Loader2 className="w-8 h-8 animate-spin" />
       </div>
     );
@@ -105,9 +105,9 @@ const MainDashboard: React.FC = () => {
 
   if (loadingAssistants && !selectedAssistant) {
     return (
-      <div className="h-screen bg-slate-950 flex flex-col items-center justify-center text-amber-400 space-y-3">
+      <div className="h-screen bg-slate-100 dark:bg-slate-950 flex flex-col items-center justify-center text-amber-500 dark:text-amber-400 space-y-3">
         <Loader2 className="w-8 h-8 animate-spin" />
-        <span className="text-xs font-semibold text-slate-400">Carregando assistentes jurídicos...</span>
+        <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Carregando assistentes jurídicos...</span>
       </div>
     );
   }
@@ -115,7 +115,7 @@ const MainDashboard: React.FC = () => {
   const activeAssistant = selectedAssistant || DEFAULT_FALLBACK_ASSISTANT;
 
   return (
-    <div className="h-screen flex bg-slate-950 overflow-hidden">
+    <div className="h-screen flex bg-slate-100 dark:bg-slate-950 text-slate-800 dark:text-slate-100 overflow-hidden transition-colors duration-200">
       <Sidebar
         activeConversationId={activeConversationId}
         onSelectAssistant={handleSelectAssistant}

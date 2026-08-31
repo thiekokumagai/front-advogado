@@ -68,19 +68,19 @@ export const Sidebar: React.FC<SidebarProps> = ({
   };
 
   return (
-    <aside className="w-80 h-screen flex flex-col bg-slate-900 border-r border-slate-800/80 select-none shrink-0 transition-all duration-300">
+    <aside className="w-80 h-screen flex flex-col bg-slate-50 dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800/80 select-none shrink-0 transition-colors duration-200">
       {/* Header / Brand */}
-      <div className="p-4 border-b border-slate-800/80 flex items-center justify-between bg-slate-950/40">
+      <div className="p-4 border-b border-slate-200 dark:border-slate-800/80 flex items-center justify-between bg-white/60 dark:bg-slate-950/40">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center shadow-lg shadow-amber-500/20 text-slate-950 font-bold">
             <Scale className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="font-extrabold text-sm text-slate-100 tracking-wide flex items-center gap-1.5">
-              Portal IA <span className="text-amber-400 font-normal text-xs bg-amber-400/10 px-1.5 py-0.5 rounded border border-amber-400/20">Advogados</span>
+            <h1 className="font-extrabold text-sm text-slate-800 dark:text-slate-100 tracking-wide flex items-center gap-1.5">
+              Portal IA <span className="text-amber-600 dark:text-amber-400 font-normal text-xs bg-amber-400/10 px-1.5 py-0.5 rounded border border-amber-400/20">Advogados</span>
             </h1>
-            <p className="text-[11px] text-slate-400 truncate flex items-center gap-1 mt-0.5">
-              <Building2 className="w-3 h-3 text-amber-400 shrink-0" />
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate flex items-center gap-1 mt-0.5">
+              <Building2 className="w-3 h-3 text-amber-500 dark:text-amber-400 shrink-0" />
               {user?.office.name || 'Escritório Demo'}
             </p>
           </div>
@@ -104,7 +104,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
             Assistentes Jurídicos
           </span>
-          <span className="text-[10px] bg-slate-800 text-amber-400 font-semibold px-2 py-0.5 rounded-full">
+          <span className="text-[10px] bg-slate-200 dark:bg-slate-800 text-amber-600 dark:text-amber-400 font-semibold px-2 py-0.5 rounded-full">
             {filteredAssistants.length} disponíveis
           </span>
         </div>
@@ -115,8 +115,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
             onClick={() => setSelectedCategory('all')}
             className={`px-2.5 py-1 text-[11px] rounded-lg font-medium transition shrink-0 ${
               selectedCategory === 'all'
-                ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                : 'bg-slate-800/60 text-slate-400 hover:bg-slate-800'
+                ? 'bg-amber-500/20 text-amber-600 dark:text-amber-300 border border-amber-500/30'
+                : 'bg-slate-200/60 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800'
             }`}
           >
             Todos
@@ -127,8 +127,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
               onClick={() => setSelectedCategory(cat)}
               className={`px-2.5 py-1 text-[11px] rounded-lg font-medium transition shrink-0 ${
                 selectedCategory === cat
-                  ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                  : 'bg-slate-800/60 text-slate-400 hover:bg-slate-800'
+                  ? 'bg-amber-500/20 text-amber-600 dark:text-amber-300 border border-amber-500/30'
+                  : 'bg-slate-200/60 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800'
               }`}
             >
               {cat}
@@ -145,27 +145,27 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <button
                 key={ast.id}
                 onClick={() => onSelectAssistant(ast)}
-                className="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-800/80 text-left transition group border border-transparent hover:border-slate-700/50"
+                className="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/80 text-left transition group border border-transparent hover:border-slate-300 dark:hover:border-slate-700/50"
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 group-hover:scale-105 transition">
+                  <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 dark:text-amber-400 group-hover:scale-105 transition">
                     <DynamicIcon name={ast.icon} className="w-4 h-4" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-xs font-semibold text-slate-200 truncate group-hover:text-amber-300 transition">
+                    <p className="text-xs font-semibold text-slate-700 dark:text-slate-200 truncate group-hover:text-amber-600 dark:group-hover:text-amber-300 transition">
                       {ast.name}
                     </p>
-                    <p className="text-[10px] text-slate-400 truncate">{ast.category}</p>
+                    <p className="text-[10px] text-slate-500 dark:text-slate-400 truncate">{ast.category}</p>
                   </div>
                 </div>
-                <ChevronRight className="w-3.5 h-3.5 text-slate-600 group-hover:text-amber-400 group-hover:translate-x-0.5 transition shrink-0" />
+                <ChevronRight className="w-3.5 h-3.5 text-slate-400 dark:text-slate-600 group-hover:text-amber-500 dark:group-hover:text-amber-400 group-hover:translate-x-0.5 transition shrink-0" />
               </button>
             ))
           )}
         </div>
 
         {/* Chat History Section */}
-        <div className="mt-4 pt-3 border-t border-slate-800/80 flex flex-col flex-1 min-h-0">
+        <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-800/80 flex flex-col flex-1 min-h-0">
           <div className="px-2 mb-2 flex items-center justify-between">
             <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
               Histórico do Escritório
@@ -187,12 +187,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     onClick={() => onSelectConversation(conv.id)}
                     className={`group flex items-center justify-between p-2.5 rounded-xl text-left text-xs cursor-pointer transition border ${
                       isActive
-                        ? 'bg-amber-500/10 text-amber-300 border-amber-500/30'
-                        : 'text-slate-300 hover:bg-slate-800/60 border-transparent'
+                        ? 'bg-amber-500/10 text-amber-600 dark:text-amber-300 border-amber-500/30'
+                        : 'text-slate-700 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-800/60 border-transparent'
                     }`}
                   >
                     <div className="flex items-center gap-2.5 min-w-0">
-                      <MessageSquare className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-amber-400' : 'text-slate-500'}`} />
+                      <MessageSquare className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-amber-500 dark:text-amber-400' : 'text-slate-400 dark:text-slate-500'}`} />
                       <div className="min-w-0">
                         <p className="font-medium truncate">{conv.title}</p>
                         <p className="text-[10px] text-slate-500 truncate">
@@ -203,7 +203,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
                     <button
                       onClick={(e) => handleDeleteConversation(e, conv.id)}
-                      className="opacity-0 group-hover:opacity-100 p-1 hover:text-red-400 transition"
+                      className="opacity-0 group-hover:opacity-100 p-1 hover:text-red-500 dark:hover:text-red-400 transition"
                       title="Excluir histórico"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -217,11 +217,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* Footer / User Controls */}
-      <div className="p-3 border-t border-slate-800/80 bg-slate-950/40 space-y-2">
+      <div className="p-3 border-t border-slate-200 dark:border-slate-800/80 bg-white/60 dark:bg-slate-950/40 space-y-2">
         {(user?.role === 'ADMIN' || user?.role === 'SUPER_ADMIN') && (
           <button
             onClick={onOpenAdmin}
-            className="w-full flex items-center justify-between p-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 text-amber-300 text-xs font-semibold transition"
+            className="w-full flex items-center justify-between p-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 text-amber-600 dark:text-amber-300 text-xs font-semibold transition"
           >
             <div className="flex items-center gap-2">
               <ShieldAlert className="w-4 h-4" />
@@ -233,26 +233,26 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
         <div className="flex items-center justify-between pt-1">
           <div className="flex items-center gap-2.5 min-w-0">
-            <div className="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-xs text-amber-400 shrink-0">
+            <div className="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 flex items-center justify-center font-bold text-xs text-amber-600 dark:text-amber-400 shrink-0">
               {user?.name.charAt(0).toUpperCase()}
             </div>
             <div className="min-w-0">
-              <p className="text-xs font-bold text-slate-200 truncate">{user?.name}</p>
-              <p className="text-[10px] text-slate-400 truncate">{user?.role}</p>
+              <p className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">{user?.name}</p>
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 truncate">{user?.role}</p>
             </div>
           </div>
 
           <div className="flex items-center gap-1">
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-lg text-slate-400 hover:text-amber-400 hover:bg-slate-800 transition"
+              className="p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:text-amber-500 dark:hover:text-amber-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition"
               title="Alternar Modo Escuro / Claro"
             >
               {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
             <button
               onClick={logout}
-              className="p-2 rounded-lg text-slate-400 hover:text-red-400 hover:bg-slate-800 transition"
+              className="p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition"
               title="Sair do Sistema"
             >
               <LogOut className="w-4 h-4" />

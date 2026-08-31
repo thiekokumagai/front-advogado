@@ -165,7 +165,7 @@ export const ChatGPTChat: React.FC<ChatGPTChatProps> = ({
   };
 
   return (
-    <div className="flex-1 flex flex-col h-full bg-slate-950 overflow-hidden relative">
+    <div className="flex-1 flex flex-col h-full bg-slate-100 dark:bg-slate-950 overflow-hidden relative transition-colors duration-200">
       {/* Transcript Container */}
       <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6 custom-scrollbar">
         {/* Welcome Assistant Card */}
@@ -175,11 +175,11 @@ export const ChatGPTChat: React.FC<ChatGPTChatProps> = ({
               <DynamicIcon name={assistant.icon} className="w-8 h-8 stroke-[2.2]" />
             </div>
             <div>
-              <span className="text-xs font-bold text-amber-400 bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20">
+              <span className="text-xs font-bold text-amber-600 dark:text-amber-400 bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20">
                 {assistant.category}
               </span>
-              <h2 className="text-xl font-bold text-slate-100 mt-2">{assistant.name}</h2>
-              <p className="text-sm text-slate-400 max-w-md mx-auto mt-1">
+              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mt-2">{assistant.name}</h2>
+              <p className="text-sm text-slate-500 dark:text-slate-400 max-w-md mx-auto mt-1">
                 {assistant.description}
               </p>
             </div>
@@ -188,18 +188,18 @@ export const ChatGPTChat: React.FC<ChatGPTChatProps> = ({
               <button
                 type="button"
                 onClick={() => handleQuickPromptClick('Elabore a estrutura jurídica inicial com base nos fatos que descreverei a seguir.')}
-                className="p-3 rounded-xl bg-slate-900/80 hover:bg-slate-900 border border-slate-800 hover:border-amber-500/40 cursor-pointer transition text-xs text-left group"
+                className="p-3 rounded-xl bg-white dark:bg-slate-900/80 hover:bg-slate-50 dark:hover:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-amber-500/40 cursor-pointer transition text-xs text-left group shadow-sm"
               >
-                <p className="font-semibold text-slate-200 group-hover:text-amber-400">💡 Estrutura de Peça</p>
-                <p className="text-[11px] text-slate-400 mt-1">Elaborar minuta inicial estruturada</p>
+                <p className="font-semibold text-slate-700 dark:text-slate-200 group-hover:text-amber-500 dark:group-hover:text-amber-400">💡 Estrutura de Peça</p>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Elaborar minuta inicial estruturada</p>
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickPromptClick('Analise a jurisprudência aplicável e teses repetitivas para este caso.')}
-                className="p-3 rounded-xl bg-slate-900/80 hover:bg-slate-900 border border-slate-800 hover:border-amber-500/40 cursor-pointer transition text-xs text-left group"
+                className="p-3 rounded-xl bg-white dark:bg-slate-900/80 hover:bg-slate-50 dark:hover:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-amber-500/40 cursor-pointer transition text-xs text-left group shadow-sm"
               >
-                <p className="font-semibold text-slate-200 group-hover:text-amber-400">📚 Pesquisa de Teses</p>
-                <p className="text-[11px] text-slate-400 mt-1">Mapear decisões e súmulas STF/STJ</p>
+                <p className="font-semibold text-slate-700 dark:text-slate-200 group-hover:text-amber-500 dark:group-hover:text-amber-400">📚 Pesquisa de Teses</p>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Mapear decisões e súmulas STF/STJ</p>
               </button>
             </div>
           </div>
@@ -223,8 +223,8 @@ export const ChatGPTChat: React.FC<ChatGPTChatProps> = ({
               <div
                 className={`group relative rounded-2xl p-4 sm:p-5 max-w-3xl text-sm leading-relaxed transition ${
                   isUser
-                    ? 'bg-amber-500/10 text-amber-100 border border-amber-500/30 rounded-tr-none'
-                    : 'bg-slate-900/90 text-slate-100 border border-slate-800/80 shadow-lg rounded-tl-none'
+                    ? 'bg-amber-500/10 text-amber-900 dark:text-amber-100 border border-amber-500/30 rounded-tr-none'
+                    : 'bg-white dark:bg-slate-900/90 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-800/80 shadow-md dark:shadow-lg rounded-tl-none'
                 }`}
               >
                 {isUser ? (
@@ -234,8 +234,8 @@ export const ChatGPTChat: React.FC<ChatGPTChatProps> = ({
                     <MarkdownRenderer content={msg.content} />
 
                     {/* Action Bar for AI Response */}
-                    <div className="mt-4 pt-3 border-t border-slate-800/60 flex items-center justify-between text-xs text-slate-400">
-                      <span className="flex items-center gap-1 text-[11px] text-amber-400/80 font-medium">
+                    <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-800/60 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                      <span className="flex items-center gap-1 text-[11px] text-amber-600 dark:text-amber-400/80 font-medium">
                         <ShieldCheck className="w-3.5 h-3.5" />
                         Portal IA Advocacia
                       </span>
@@ -243,13 +243,13 @@ export const ChatGPTChat: React.FC<ChatGPTChatProps> = ({
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => handleCopy(msg.id, msg.content)}
-                          className="flex items-center gap-1 px-2 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition"
+                          className="flex items-center gap-1 px-2 py-1 rounded-lg bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 transition"
                           title="Copiar texto"
                         >
                           {copiedMessageId === msg.id ? (
                             <>
-                              <Check className="w-3.5 h-3.5 text-emerald-400" />
-                              <span className="text-[11px] text-emerald-400">Copiado!</span>
+                              <Check className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" />
+                              <span className="text-[11px] text-emerald-500 dark:text-emerald-400">Copiado!</span>
                             </>
                           ) : (
                             <>
@@ -261,7 +261,7 @@ export const ChatGPTChat: React.FC<ChatGPTChatProps> = ({
 
                         <button
                           onClick={() => handleExport(msg.id, 'docx')}
-                          className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-500/10 hover:bg-blue-500/20 text-blue-300 border border-blue-500/30 transition text-[11px] font-semibold"
+                          className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-500/10 hover:bg-blue-500/20 text-blue-600 dark:text-blue-300 border border-blue-500/30 transition text-[11px] font-semibold"
                           title="Exportar em Word (DOCX)"
                         >
                           <FileCode className="w-3.5 h-3.5" />
@@ -270,7 +270,7 @@ export const ChatGPTChat: React.FC<ChatGPTChatProps> = ({
 
                         <button
                           onClick={() => handleExport(msg.id, 'pdf')}
-                          className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-300 border border-red-500/30 transition text-[11px] font-semibold"
+                          className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-600 dark:text-red-300 border border-red-500/30 transition text-[11px] font-semibold"
                           title="Exportar em PDF"
                         >
                           <Download className="w-3.5 h-3.5" />
@@ -283,7 +283,7 @@ export const ChatGPTChat: React.FC<ChatGPTChatProps> = ({
               </div>
 
               {isUser && (
-                <div className="w-8 h-8 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-amber-400 shrink-0 font-bold text-xs">
+                <div className="w-8 h-8 rounded-xl bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 flex items-center justify-center text-amber-600 dark:text-amber-400 shrink-0 font-bold text-xs">
                   <UserIcon className="w-4 h-4" />
                 </div>
               )}
@@ -297,7 +297,7 @@ export const ChatGPTChat: React.FC<ChatGPTChatProps> = ({
             <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center text-slate-950 shrink-0">
               <Bot className="w-4 h-4 animate-spin" />
             </div>
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl rounded-tl-none p-4 text-xs text-amber-400 flex items-center gap-2">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl rounded-tl-none p-4 text-xs text-amber-600 dark:text-amber-400 flex items-center gap-2 shadow-sm">
               <Loader2 className="w-4 h-4 animate-spin" />
               <span>Redigindo fundamentação com {assistant.name}...</span>
             </div>
@@ -308,13 +308,13 @@ export const ChatGPTChat: React.FC<ChatGPTChatProps> = ({
       </div>
 
       {/* Input Box and Attachments Toolbar */}
-      <div className="p-4 bg-slate-950 border-t border-slate-800/80">
+      <div className="p-4 bg-white/80 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800/80 transition-colors duration-200">
         <div className="max-w-4xl mx-auto space-y-2">
           {/* Upload Success Alert Banner */}
           {uploadSuccessMsg && (
-            <div className="flex items-center justify-between bg-emerald-500/10 border border-emerald-500/30 px-3 py-1.5 rounded-xl text-xs text-emerald-300 animate-in fade-in">
+            <div className="flex items-center justify-between bg-emerald-500/10 border border-emerald-500/30 px-3 py-1.5 rounded-xl text-xs text-emerald-700 dark:text-emerald-300 animate-in fade-in">
               <span>{uploadSuccessMsg}</span>
-              <button onClick={() => setUploadSuccessMsg(null)} className="hover:text-emerald-100">
+              <button onClick={() => setUploadSuccessMsg(null)} className="hover:text-emerald-900 dark:hover:text-emerald-100">
                 <X className="w-3.5 h-3.5" />
               </button>
             </div>
@@ -326,18 +326,18 @@ export const ChatGPTChat: React.FC<ChatGPTChatProps> = ({
               {attachments.map((att) => (
                 <div
                   key={att.id}
-                  className="flex items-center gap-2 bg-slate-900 border border-amber-500/40 px-3 py-1.5 rounded-xl text-xs text-slate-200 shadow-md"
+                  className="flex items-center gap-2 bg-slate-100 dark:bg-slate-900 border border-amber-500/40 px-3 py-1.5 rounded-xl text-xs text-slate-700 dark:text-slate-200 shadow-sm"
                 >
-                  <FileText className="w-3.5 h-3.5 text-amber-400" />
+                  <FileText className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
                   <span className="truncate max-w-xs font-medium">{att.fileName}</span>
-                  <span className="text-[10px] text-amber-400/80 uppercase font-bold">({att.fileType})</span>
+                  <span className="text-[10px] text-amber-600 dark:text-amber-400/80 uppercase font-bold">({att.fileType})</span>
                 </div>
               ))}
             </div>
           )}
 
           {/* Form Controls */}
-          <form onSubmit={(e) => handleSend(e)} className="relative flex items-center bg-slate-900 border border-slate-800 focus-within:border-amber-500/50 rounded-2xl shadow-xl transition">
+          <form onSubmit={(e) => handleSend(e)} className="relative flex items-center bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 focus-within:border-amber-500/50 rounded-2xl shadow-md dark:shadow-xl transition">
             <input
               type="file"
               ref={fileInputRef}
@@ -350,11 +350,11 @@ export const ChatGPTChat: React.FC<ChatGPTChatProps> = ({
               type="button"
               onClick={() => fileInputRef.current?.click()}
               disabled={isUploading}
-              className="p-3 text-slate-400 hover:text-amber-400 transition rounded-l-2xl hover:bg-slate-800/60"
+              className="p-3 text-slate-400 hover:text-amber-500 dark:hover:text-amber-400 transition rounded-l-2xl hover:bg-slate-100 dark:hover:bg-slate-800/60"
               title="Anexar PDF ou DOCX para incluir no contexto da IA"
             >
               {isUploading ? (
-                <Loader2 className="w-5 h-5 animate-spin text-amber-400" />
+                <Loader2 className="w-5 h-5 animate-spin text-amber-500 dark:text-amber-400" />
               ) : (
                 <Paperclip className="w-5 h-5" />
               )}
@@ -376,7 +376,7 @@ export const ChatGPTChat: React.FC<ChatGPTChatProps> = ({
                   : `Digite suas instruções para o ${assistant.name} (Pressione Enter para enviar)...`
               }
               rows={1}
-              className="w-full bg-transparent py-3.5 px-2 text-sm text-slate-100 placeholder-slate-500 focus:outline-none resize-none max-h-32 custom-scrollbar"
+              className="w-full bg-transparent py-3.5 px-2 text-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none resize-none max-h-32 custom-scrollbar"
             />
 
             <button
@@ -388,7 +388,7 @@ export const ChatGPTChat: React.FC<ChatGPTChatProps> = ({
             </button>
           </form>
 
-          <p className="text-[11px] text-center text-slate-500 pt-1">
+          <p className="text-[11px] text-center text-slate-400 dark:text-slate-500 pt-1">
             As respostas são geradas por Inteligência Artificial e devem ser validadas pelo advogado responsável.
           </p>
         </div>
