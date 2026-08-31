@@ -35,10 +35,7 @@ export const conversationsService = {
 
     const { data } = await api.post<Attachment>(
       `/conversations/${conversationId}/attachments`,
-      formData,
-      {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      },
+      formData
     );
     return data;
   },

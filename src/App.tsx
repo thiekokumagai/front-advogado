@@ -16,6 +16,19 @@ import { AdminUsersPage } from './pages/AdminUsersPage';
 import { Assistant, Conversation } from './types';
 import { Loader2 } from 'lucide-react';
 
+const DEFAULT_FALLBACK_ASSISTANT: Assistant = {
+  id: 'default',
+  name: 'Petição Inicial Civil',
+  icon: 'FileText',
+  description: 'Especialista em redação de petições iniciais completas e fundamentadas.',
+  category: 'Petições',
+  systemPrompt: 'Você é um advogado especialista em Direito Processual Civil brasileiro. Elabore uma petição inicial estruturada.',
+  isActive: true,
+  order: 1,
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
+};
+
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user, isLoading } = useAuth();
 
@@ -48,10 +61,14 @@ const MainDashboard: React.FC = () => {
 
   // Select default first assistant when loaded
   useEffect(() => {
-    if (assistants.length > 0 && !selectedAssistant) {
-      setSelectedAssistant(assistants[0]);
+    if (assistants.length > 0) {
+      if (!selectedAssistant) {
+        setSelectedAssistant(assistants[0]);
+      }
+    } else if (!loadingAssistants && !selectedAssistant) {
+      setSelectedAssistant(DEFAULT_FALLBACK_ASSISTANT);
     }
-  }, [assistants]);
+  }, [assistants, loadingAssistants]);
 
   // Load active conversation details when activeConversationId changes
   useEffect(() => {
@@ -86,7 +103,7 @@ const MainDashboard: React.FC = () => {
     navigate('/admin/assistants');
   };
 
-  if (loadingAssistants || !selectedAssistant) {
+  if (loadingAssistants && !selectedAssistant) {
     return (
       <div className="h-screen bg-slate-950 flex flex-col items-center justify-center text-amber-400 space-y-3">
         <Loader2 className="w-8 h-8 animate-spin" />
@@ -94,6 +111,8 @@ const MainDashboard: React.FC = () => {
       </div>
     );
   }
+
+  const activeAssistant = selectedAssistant || DEFAULT_FALLBACK_ASSISTANT;
 
   return (
     <div className="h-screen flex bg-slate-950 overflow-hidden">
@@ -106,9 +125,9 @@ const MainDashboard: React.FC = () => {
       />
 
       <div className="flex-1 flex flex-col h-full min-w-0">
-        <Header currentAssistant={selectedAssistant} onNewChat={handleNewChat} />
+        <Header currentAssistant={activeAssistant} onNewChat={handleNewChat} />
         <ChatGPTChat
-          assistant={selectedAssistant}
+          assistant={activeAssistant}
           conversation={activeConversation}
           onConversationCreated={(conv) => {
             setActiveConversation(conv);

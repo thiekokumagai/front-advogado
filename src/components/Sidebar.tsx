@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { assistantsService } from '../services/assistants.service';
 import { conversationsService } from '../services/conversations.service';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { DynamicIcon } from './DynamicIcon';
-import { Conversation, Assistant } from '../types';
+import { Assistant } from '../types';
 import {
   Plus,
   MessageSquare,
@@ -34,6 +34,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onNewChat,
   onOpenAdmin,
 }) => {
+  const queryClient = useQueryClient();
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -44,10 +45,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
     queryFn: assistantsService.getAll,
   });
 
-  // Fetch Conversations History
-  const { data: conversations = [], refetch: refetchConversations } = useQuery({
+  // Fetch Conversations History in Real-Time (refetchEvery 3s like LojaPod)
+  const { data: conversations = [] } = useQuery({
     queryKey: ['conversations'],
     queryFn: conversationsService.getAll,
+    refetchInterval: 3000,
   });
 
   const categories = Array.from(new Set(assistants.map((a) => a.category)));
@@ -61,7 +63,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     e.stopPropagation();
     if (confirm('Deseja excluir este histórico de conversa?')) {
       await conversationsService.delete(id);
-      refetchConversations();
+      queryClient.invalidateQueries({ queryKey: ['conversations'] });
     }
   };
 
