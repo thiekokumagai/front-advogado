@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useRegisterSW } from 'virtual:pwa-register/react';
 import { api } from '../services/api';
 import { Bell, ShieldCheck } from 'lucide-react';
 
@@ -20,16 +19,15 @@ export function PushNotificationManager() {
   const [swRegistration, setSwRegistration] = useState<ServiceWorkerRegistration | null>(null);
   const [showBanner, setShowBanner] = useState(false);
 
-  useRegisterSW({
-    onRegisteredSW(_swScriptUrl: string, registration: ServiceWorkerRegistration | undefined) {
-      if (registration) {
-        setSwRegistration(registration);
-      }
-    },
-    onRegisterError(error: any) {
-      console.error('SW registration error', error);
-    },
-  });
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.ready
+        .then((registration) => {
+          setSwRegistration(registration);
+        })
+        .catch((err) => console.debug('Service worker ready error:', err));
+    }
+  }, []);
 
   const subscribeToPush = async (registration: ServiceWorkerRegistration) => {
     try {

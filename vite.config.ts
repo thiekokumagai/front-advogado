@@ -25,7 +25,7 @@ export default defineConfig({
       srcDir: 'src',
       filename: 'sw.js',
       registerType: 'prompt',
-      devOptions: { enabled: true },
+      devOptions: { enabled: true, type: 'module' },
       manifest: {
         name: 'Portal IA para Advogados',
         short_name: 'PortalAdvocacia',
