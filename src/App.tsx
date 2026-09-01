@@ -13,6 +13,7 @@ import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { AdminAssistantsPage } from './pages/AdminAssistantsPage';
 import { AdminUsersPage } from './pages/AdminUsersPage';
+import { ContractTemplatesPage } from './pages/ContractTemplatesPage';
 import { Assistant, Conversation } from './types';
 import { Loader2 } from 'lucide-react';
 
@@ -166,6 +167,14 @@ export const App: React.FC = () => {
           element={
             <ProtectedRoute>
               <AdminUsersPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/templates"
+          element={
+            <ProtectedRoute>
+              <ContractTemplatesPage />
             </ProtectedRoute>
           }
         />

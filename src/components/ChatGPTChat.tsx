@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Assistant, Conversation, Message, Attachment } from '../types';
 import { conversationsService } from '../services/conversations.service';
+import { templatesService } from '../services/templates.service';
 import { MarkdownRenderer } from './MarkdownRenderer';
 import { DynamicIcon } from './DynamicIcon';
 import {
@@ -39,6 +40,13 @@ export const ChatGPTChat: React.FC<ChatGPTChatProps> = ({
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [copiedMessageId, setCopiedMessageId] = useState<string | null>(null);
   const [uploadSuccessMsg, setUploadSuccessMsg] = useState<string | null>(null);
+  const [showTemplateMenu, setShowTemplateMenu] = useState<boolean>(false);
+
+  // Fetch Office Contract Templates
+  const { data: contractTemplates = [] } = useQuery({
+    queryKey: ['templates'],
+    queryFn: templatesService.getAll,
+  });
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
@@ -375,7 +383,7 @@ export const ChatGPTChat: React.FC<ChatGPTChatProps> = ({
               type="button"
               onClick={() => fileInputRef.current?.click()}
               disabled={isUploading}
-              className="p-3 text-slate-400 hover:text-amber-500 dark:hover:text-amber-400 transition rounded-l-2xl hover:bg-slate-100 dark:hover:bg-slate-800/60"
+              className="p-3 text-slate-400 hover:text-amber-500 dark:hover:text-amber-400 transition hover:bg-slate-100 dark:hover:bg-slate-800/60"
               title="Anexar novo PDF ou DOCX"
             >
               {isUploading ? (
@@ -384,6 +392,62 @@ export const ChatGPTChat: React.FC<ChatGPTChatProps> = ({
                 <Paperclip className="w-5 h-5" />
               )}
             </button>
+
+            {/* Contract Template Selector Button */}
+            {contractTemplates.length > 0 && (
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setShowTemplateMenu(!showTemplateMenu)}
+                  className={`p-3 transition hover:bg-slate-100 dark:hover:bg-slate-800/60 ${
+                    showTemplateMenu
+                      ? 'text-amber-500 dark:text-amber-400'
+                      : 'text-slate-400 hover:text-amber-500 dark:hover:text-amber-400'
+                  }`}
+                  title="Inserir Modelo de Contrato do Escritório"
+                >
+                  <FileCode className="w-5 h-5" />
+                </button>
+
+                {showTemplateMenu && (
+                  <div className="absolute bottom-12 left-0 z-30 w-72 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl p-2 space-y-1 animate-in fade-in slide-in-from-bottom-2">
+                    <div className="px-2 py-1 flex items-center justify-between border-b border-slate-100 dark:border-slate-800">
+                      <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                        Modelos do Escritório
+                      </span>
+                      <span className="text-[10px] bg-amber-500/10 text-amber-500 px-1.5 py-0.5 rounded font-semibold">
+                        {contractTemplates.length}
+                      </span>
+                    </div>
+
+                    <div className="max-h-48 overflow-y-auto space-y-1 custom-scrollbar">
+                      {contractTemplates.map((tmpl) => (
+                        <button
+                          key={tmpl.id}
+                          type="button"
+                          onClick={() => {
+                            setInputMessage(
+                              (prev) =>
+                                (prev ? prev + '\n\n' : '') +
+                                `[MODELO SELECIONADO: "${tmpl.title}"]\n${tmpl.content}`,
+                            );
+                            setShowTemplateMenu(false);
+                          }}
+                          className="w-full text-left p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition flex flex-col group"
+                        >
+                          <span className="text-xs font-bold text-slate-700 dark:text-slate-200 group-hover:text-amber-500 truncate">
+                            {tmpl.title}
+                          </span>
+                          <span className="text-[10px] text-slate-400 truncate">
+                            {tmpl.category} • {tmpl.fileType?.toUpperCase() || 'TEXTO'}
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
 
             <textarea
               ref={textareaRef}

@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { DynamicIcon } from './DynamicIcon';
 import { Assistant } from '../types';
+import { Link } from 'react-router-dom';
 import {
   Plus,
   MessageSquare,
@@ -17,6 +18,7 @@ import {
   ChevronRight,
   Trash2,
   Building2,
+  FileCode,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -87,8 +89,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
       </div>
 
-      {/* New Chat Button */}
-      <div className="p-3">
+      {/* New Chat & Contract Templates Buttons */}
+      <div className="p-3 space-y-2">
         <button
           onClick={onNewChat}
           className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold rounded-xl text-sm transition-all duration-200 shadow-md shadow-amber-500/20 active:scale-[0.98]"
@@ -96,6 +98,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <Plus className="w-4 h-4 stroke-[2.5]" />
           Nova Consulta / Peça
         </button>
+
+        <Link
+          to="/templates"
+          className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-slate-200/70 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold rounded-xl text-xs transition border border-slate-300/60 dark:border-slate-700/60"
+        >
+          <FileCode className="w-4 h-4 text-amber-500" />
+          Modelos de Contratos
+        </Link>
       </div>
 
       {/* Dynamic Assistants Menu */}

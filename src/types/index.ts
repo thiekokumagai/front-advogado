@@ -66,6 +66,18 @@ export interface Conversation {
   };
 }
 
+export interface ContractTemplate {
+  id: string;
+  officeId: string;
+  title: string;
+  category: string;
+  description?: string;
+  fileType?: 'pdf' | 'docx' | 'manual';
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface OfficeStats {
   totalConversations: number;
   totalMessages: number;
